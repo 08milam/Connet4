@@ -36,7 +36,7 @@ body{
 .box {
   width: 10dvi;
   height: 10dvi;
-  border: 1px solid rgb(109, 70, 37);
+  border: 1px solid rgb(154, 154, 154);
   display: flex;
   align-items: center;
   justify-content: center;
