@@ -2,8 +2,9 @@
 
 
 
-let playerOne = document.querySelector('#playerOne').value;
-let playerTwo = 'y';
+// let playerOne = document.querySelector('#playerOne').value;
+let playerOne = '🌞'
+let playerTwo = '🌚';
 console.log(playerOne)
 
 // let currentPlayer = playerOne;
@@ -94,4 +95,3 @@ window.onload = function(){
 
 
 
-    
