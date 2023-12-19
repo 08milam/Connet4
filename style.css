@@ -9,13 +9,13 @@ body{
 
 .gameContainer{
 
-
 }
 
 
 .content{
   background-color: rgba(39, 27, 12, 0.459);
-  margin: 5dvi;
+  width: 65dvi;
+  margin: auto;
   padding: 2dvi;
   border-radius: 2dvi;
   backdrop-filter: blur(1dvi);
@@ -24,23 +24,23 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, 10dvi);
+  grid-template-columns: repeat(7, 8dvi);
   gap: 5px;
-  /* margin-top: 20px; */
 }
 
 .box {
-  width: 10dvi;
-  height: 10dvi;
+  width: 8dvi;
+  height: 8dvi;
   border: 1px solid rgb(154, 154, 154);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8dvi;
+  font-size: 7.5dvi;
   cursor: pointer;
 }
 
@@ -50,7 +50,8 @@ body{
 
 .player{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 10dvi;
 }
 
 #playerOne{
@@ -79,33 +80,22 @@ body{
   border: .5dvi solid rgb(130, 32, 0);
 }
 
-.info{   
-  width: 100%;
-  height: 50px;
+
+.navbar{
+  width: 100dvw;
+  height: 5dvh;
   position: fixed;
-  bottom: 10px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  word-spacing: 1.0dvi;
+  color: whitesmoke;
+  background-color: black;
+  top: 0;
+  margin-left: -8px;
 }
 
-.navbar-sub-container{
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(20px); 
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  font-size: 1rem;
-  margin-left: -15px;
-}
 p, a{
   text-decoration: none;
   color: aliceblue;
-  padding: 10px;
 }
