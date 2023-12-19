@@ -1,7 +1,7 @@
 /* game board table */
 
 body{
-  background: rgb(52, 52, 52);
+  background: rgb(87, 87, 87);
   /* background: repeating-linear-gradient(45deg, rgb(43, 43, 43), rgb(68, 68, 68) 40dvw, rgb(38, 37, 37) 5dvi); */
 
   text-align: center;
@@ -14,7 +14,7 @@ body{
 
 
 .content{
-  background-color: rgba(39, 27, 12, 0.468);
+  background-color: rgba(39, 27, 12, 0.459);
   margin: 5dvi;
   padding: 2dvi;
   border-radius: 2dvi;
@@ -36,7 +36,7 @@ body{
 .box {
   width: 10dvi;
   height: 10dvi;
-  border: 1px solid rgb(85, 55, 29);
+  border: 1px solid rgb(109, 70, 37);
   display: flex;
   align-items: center;
   justify-content: center;
