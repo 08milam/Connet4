@@ -1,53 +1,29 @@
+<!-- 
+PORJECT NAME:  connect four
+FILE: index.html
+DATE: 
+MOD DATE: 
+MOD CHANGES: 
+MOD LINE: 
+VERSION: 0.2.0
+PROGRAMER: Charles Matthew Milam Jr
+-->
+
+<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Connect 4 Game</title>
+  <title>Connect Four</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="navbar">
-    <nav>
-        <div class="navbar-sub-container">
-        <a class="navbar-link" href="https://08milam.github.io/home/" target="_blank">◉</a>
-        <a class="navbar-link" href="https://www.linkedin.com/in/matthewmilam/" target="_blank">linkedin</a>
-        <a class="navbar-link" href="https://08milam.github.io/projects/" target="_blank">Projects</a>
-        <a class="navbar-link" href="https://08milam.github.io/badges/" target="_blank">Badges</a>
-        <a class="navbar-link" href="https://github.com/08milam" target="_blank">Github</a>
-        <a class="navbar-link" href="mailto:08milam@gmail.com">E-mail</a>
-        </div>
-    </nav>
-</div>
+<div id="gameBoard" class="board"></div>
+<button id="resetButton">Reset Game</button>
 
 
-<div class="gameContainer">
-
-  <!-- player selection -->
-  <div class="player">
-    <div>
-      <h2>Player One</h2>
-      <form id="formOne">
-        <input id="playerOne" type="text">
-      </form>
-    </div>
-    <div class="info">
-      <h1>CONNET 4</h1>
-      <h3>Choose a character</h3>
-    </div>
-    <div>
-      <h2>Player Two</h2>
-      <form id="formTwo">
-        <input id="playerTwo" type="text">
-      </form>
-    </div>
-  </div>
-  <!-- connet 4 game -->
-  <div class="content">
-    <div id="board" class="board"></div>
+<script src="script.js"></script>
 </body>
-<footer class="info">
-  <script src="script.js"></script>
-</footer>
 </html>

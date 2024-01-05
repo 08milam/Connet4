@@ -1,97 +1,149 @@
 
+// PORJECT NAME: connect four
+// FILE: script.js
+// DATE: 
+// MOD DATE: 
+// MOD CHANGES: 
+// MOD LINE: 
+// VERSION: 0.2.0
+// PROGRAMER: Charles Matthew Milam Jr
 
 
-
-// let playerOne = document.querySelector('#playerOne').value;
-let playerOne = '🌞'
-let playerTwo = '🌚';
-console.log(playerOne)
-
-// let currentPlayer = playerOne;
-
-let gameOver = false;
-
-const ROWS = 6;
-  const COLS = 7;
-
-
-window.onload = function(){
-  startGame();
-}
-  let currentPlayer = playerOne;
-  let board = createBoard();
-
-  function createBoard() {
-    return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+class ConnectFour {
+  constructor(rows, cols, currentPlayer) {
+    this.rows = rows;
+    this.cols = cols;
+    this.board = this.createEmptyBoard();
+    this.currentPlayer = 'red';
+    this.isGameOver = false;
   }
 
-  function renderBoard() {
-    const boardElement = document.getElementById('board');
-    boardElement.innerHTML = '';
 
-    for (let row = 0; row < ROWS; row++) {
-      for (let column = 0; column < COLS; column++) {
-        const box = document.createElement('div');
-        box.dataset.column = column;
-        box.dataset.row = row;
-        box.classList.add('box');
-        box.addEventListener('click', () => handleMove(column));
-        box.textContent = board[row][column] || '';
-        boardElement.appendChild(box);
+  createEmptyBoard() {
+    return Array.from({ length: this.rows }, () => Array(this.cols).fill(null));
+  }
+
+  dropPiece(col) {
+    if (this.isGameOver) return;
+
+    const row = this.findAvailableRow(col);
+
+    if (row !== -1) {
+      this.board[row][col] = this.currentPlayer;
+      this.checkForWin(row, col);
+      this.switchPlayer();
+      this.checkForTie();
+      if (!this.isGameOver && this.currentPlayer === 'yellow') {
+        this.makeAIMove();
       }
     }
   }
 
-  function checkPlayer(row, column) {
-    return (
-      Direction(row, column, 0, 1) || // Horizontal
-      Direction(row, column, 1, 0) || // Vertical
-      Direction(row, column, 1, 1) || // Diagonal 
-      Direction(row, column, -1, 1)   // Diagonal 
-    );
-  }
-
-  function Direction(row, column, rowDir, columnDir) {
-    const count = (r, c) => (board[r] && board[r][c] === currentPlayer ? 1 + count(r + rowDir, c + columnDir) : 0);
-    return count(row, column) + count(row - rowDir, column - columnDir) >= 4;
-  }
-
-  function handleMove(column) {
-    const row = getEmptyRow(column);
-    if (row !== null) {
-      board[row][column] = currentPlayer;
-      renderBoard();
-
-      if (checkPlayer(row, column)) {
-        alert(`Player ${currentPlayer} wins!`);
-        resetGame();
-      } else if (BoardIsFull()) {
-        alert("It's a draw!");
-        resetGame();
-      } else {
-        currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-      }
-    }
-  }
-
-  function getEmptyRow(column) {
-    for (let row = ROWS - 1; row >= 0; row--) {
-      if (board[row][column] === null) {
+  findAvailableRow(col) {
+    for (let row = this.rows - 1; row >= 0; row--) {
+      if (!this.board[row][col]) {
         return row;
       }
     }
-    return null;
+    return -1; // Column is full
   }
 
-  function BoardIsFull() {
-    return board.every(row => row.every(cell => cell !== null));
+  switchPlayer() {
+    this.currentPlayer = this.currentPlayer === 'red' ? 'yellow' : 'red';
+  }
+// check for four in a row
+  checkForWin(row, col) {
+    if (
+      this.checkDirection(row, col, 0, 1) ||   // Horizontal
+      this.checkDirection(row, col, 1, 0) ||   // Vertical
+      this.checkDirection(row, col, 1, 1) ||   // Diagonal /
+      this.checkDirection(row, col, 1, -1)     // Diagonal \
+    ) {
+      this.isGameOver = true;
+      alert(`${this.currentPlayer.toUpperCase()} wins!`);
+    }
+  }
+//if both player do not win
+  checkForTie() {
+    if (this.board.every(row => row.every(cell => cell !== null))) {
+      this.isGameOver = true;
+      alert('It\'s a tie!');
+    }
+  }
+// checks for witch direction the player is going
+  checkDirection(row, col, rowDir, colDir) {
+    const count = this.countConnected(row, col, rowDir, colDir) +
+                  this.countConnected(row, col, -rowDir, -colDir) + 1;
+    return count >= 4;
   }
 
-  function resetGame() {
-    board = createBoard();
-    currentPlayer = playerOne;
-    renderBoard();  }
-    renderBoard();
+  countConnected(row, col, rowDir, colDir) {
+    let count = 0;
+    let r = row + rowDir;
+    let c = col + colDir;
 
+    while (r >= 0 && r < this.rows && c >= 0 && c < this.cols && this.board[r][c] === this.currentPlayer) {
+      count++;
+      r += rowDir;
+      c += colDir;
+    }
 
+    return count;
+  }
+//computer player creates a move 
+  makeAIMove() {
+    const availableCols = [];
 
+    for (let col = 0; col < this.cols; col++) {
+      if (!this.board[0][col]) {
+        availableCols.push(col);
+      }
+    }
+
+    const randomCol = availableCols[Math.floor(Math.random() * availableCols.length)];
+    setTimeout(() => {
+      this.dropPiece(randomCol);
+      updateBoard();
+    }, 1000);
+  }
+}
+
+const game = new ConnectFour(6, 7);
+const gameBoardElement = document.getElementById('gameBoard');
+const resetButtonElement = document.getElementById('resetButton');
+
+//checks if cell is available and updates selected cell
+function updateBoard() {
+  gameBoardElement.innerHTML = '';
+  for (let row = 0; row < game.rows; row++) {
+    for (let col = 0; col < game.cols; col++) {
+      const cellElement = document.createElement('div');
+      cellElement.className = 'cell';
+      cellElement.style.backgroundColor = game.board[row][col] || '#fff';
+      if (row === 0 && game.currentPlayer === 'red') {
+        cellElement.addEventListener('click', () => handleCellClick(col));
+        cellElement.style.cursor = 'pointer';
+      } else {
+        cellElement.style.cursor = 'not-allowed';
+      }
+
+      gameBoardElement.appendChild(cellElement);
+    }
+  }
+}
+
+function handleCellClick(col) {
+  game.dropPiece(col);
+  updateBoard();
+}
+//reset for game
+function resetGame() {
+  game.isGameOver = false;
+  game.currentPlayer = 'red';
+  game.board = game.createEmptyBoard();
+  updateBoard();
+}
+
+resetButtonElement.addEventListener('click', resetGame);
+//updates board after reset
+updateBoard();
