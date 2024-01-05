@@ -108,7 +108,7 @@ class ConnectFour {
   }
 }
 
-const game = new ConnectFour(6, 7);
+const game = new ConnectFour(7, 7);
 const gameBoardElement = document.getElementById('gameBoard');
 const resetButtonElement = document.getElementById('resetButton');
 
@@ -119,7 +119,7 @@ function updateBoard() {
     for (let col = 0; col < game.cols; col++) {
       const cellElement = document.createElement('div');
       cellElement.className = 'cell';
-      cellElement.style.backgroundColor = game.board[row][col] || '#fff';
+      cellElement.style.backgroundColor = game.board[row][col] || 'rgb(76, 125, 174)';
       if (row === 0 && game.currentPlayer === 'red') {
         cellElement.addEventListener('click', () => handleCellClick(col));
         cellElement.style.cursor = 'pointer';
