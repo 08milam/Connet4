@@ -1,23 +1,20 @@
-
 // PORJECT NAME: connect four
 // FILE: script.js
-// DATE: 
-// MOD DATE: 
-// MOD CHANGES: 
-// MOD LINE: 
+// DATE:
+// MOD DATE:
+// MOD CHANGES:
+// MOD LINE:
 // VERSION: 0.2.0
 // PROGRAMER: Charles Matthew Milam Jr
-
 
 class ConnectFour {
   constructor(rows, cols, currentPlayer) {
     this.rows = rows;
     this.cols = cols;
     this.board = this.createEmptyBoard();
-    this.currentPlayer = 'red';
+    this.currentPlayer = "red";
     this.isGameOver = false;
   }
-
 
   createEmptyBoard() {
     return Array.from({ length: this.rows }, () => Array(this.cols).fill(null));
@@ -33,7 +30,7 @@ class ConnectFour {
       this.checkForWin(row, col);
       this.switchPlayer();
       this.checkForTie();
-      if (!this.isGameOver && this.currentPlayer === 'yellow') {
+      if (!this.isGameOver && this.currentPlayer === "yellow") {
         this.makeAIMove();
       }
     }
@@ -49,31 +46,33 @@ class ConnectFour {
   }
 
   switchPlayer() {
-    this.currentPlayer = this.currentPlayer === 'red' ? 'yellow' : 'red';
+    this.currentPlayer = this.currentPlayer === "red" ? "yellow" : "red";
   }
-// check for four in a row
+  // check for four in a row
   checkForWin(row, col) {
     if (
-      this.checkDirection(row, col, 0, 1) ||   // Horizontal
-      this.checkDirection(row, col, 1, 0) ||   // Vertical
-      this.checkDirection(row, col, 1, 1) ||   // Diagonal /
-      this.checkDirection(row, col, 1, -1)     // Diagonal \
+      this.checkDirection(row, col, 0, 1) || // Horizontal
+      this.checkDirection(row, col, 1, 0) || // Vertical
+      this.checkDirection(row, col, 1, 1) || // Diagonal /
+      this.checkDirection(row, col, 1, -1) // Diagonal \
     ) {
       this.isGameOver = true;
       alert(`${this.currentPlayer.toUpperCase()} wins!`);
     }
   }
-//if both player do not win
+  //if both player do not win
   checkForTie() {
-    if (this.board.every(row => row.every(cell => cell !== null))) {
+    if (this.board.every((row) => row.every((cell) => cell !== null))) {
       this.isGameOver = true;
-      alert('It\'s a tie!');
+      alert("It's a tie!");
     }
   }
-// checks for witch direction the player is going
+  // checks for witch direction the player is going
   checkDirection(row, col, rowDir, colDir) {
-    const count = this.countConnected(row, col, rowDir, colDir) +
-                  this.countConnected(row, col, -rowDir, -colDir) + 1;
+    const count =
+      this.countConnected(row, col, rowDir, colDir) +
+      this.countConnected(row, col, -rowDir, -colDir) +
+      1;
     return count >= 4;
   }
 
@@ -82,7 +81,13 @@ class ConnectFour {
     let r = row + rowDir;
     let c = col + colDir;
 
-    while (r >= 0 && r < this.rows && c >= 0 && c < this.cols && this.board[r][c] === this.currentPlayer) {
+    while (
+      r >= 0 &&
+      r < this.rows &&
+      c >= 0 &&
+      c < this.cols &&
+      this.board[r][c] === this.currentPlayer
+    ) {
       count++;
       r += rowDir;
       c += colDir;
@@ -90,7 +95,7 @@ class ConnectFour {
 
     return count;
   }
-//computer player creates a move 
+  //computer player creates a move
   makeAIMove() {
     const availableCols = [];
 
@@ -100,7 +105,8 @@ class ConnectFour {
       }
     }
 
-    const randomCol = availableCols[Math.floor(Math.random() * availableCols.length)];
+    const randomCol =
+      availableCols[Math.floor(Math.random() * availableCols.length)];
     setTimeout(() => {
       this.dropPiece(randomCol);
       updateBoard();
@@ -109,22 +115,23 @@ class ConnectFour {
 }
 
 const game = new ConnectFour(7, 7);
-const gameBoardElement = document.getElementById('gameBoard');
-const resetButtonElement = document.getElementById('resetButton');
+const gameBoardElement = document.getElementById("gameBoard");
+const resetButtonElement = document.getElementById("resetButton");
 
 //checks if cell is available and updates selected cell
 function updateBoard() {
-  gameBoardElement.innerHTML = '';
+  gameBoardElement.innerHTML = "";
   for (let row = 0; row < game.rows; row++) {
     for (let col = 0; col < game.cols; col++) {
-      const cellElement = document.createElement('div');
-      cellElement.className = 'cell';
-      cellElement.style.backgroundColor = game.board[row][col] || 'rgb(76, 125, 174)';
-      if (row === 0 && game.currentPlayer === 'red') {
-        cellElement.addEventListener('click', () => handleCellClick(col));
-        cellElement.style.cursor = 'pointer';
+      const cellElement = document.createElement("div");
+      cellElement.className = "cell";
+      cellElement.style.backgroundColor =
+        game.board[row][col] || "rgb(76, 125, 174)";
+      if (row === 0 && game.currentPlayer === "red") {
+        cellElement.addEventListener("click", () => handleCellClick(col));
+        cellElement.style.cursor = "pointer";
       } else {
-        cellElement.style.cursor = 'not-allowed';
+        cellElement.style.cursor = "not-allowed";
       }
 
       gameBoardElement.appendChild(cellElement);
@@ -139,11 +146,11 @@ function handleCellClick(col) {
 //reset for game
 function resetGame() {
   game.isGameOver = false;
-  game.currentPlayer = 'red';
+  game.currentPlayer = "red";
   game.board = game.createEmptyBoard();
   updateBoard();
 }
 
-resetButtonElement.addEventListener('click', resetGame);
+resetButtonElement.addEventListener("click", resetGame);
 //updates board after reset
 updateBoard();
